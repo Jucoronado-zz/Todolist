@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.widget.*
 
 class Todolist : AppCompatActivity() {
-    var lang = arrayOf(" ", "marcos","Jose")
+    var lang : ArrayList<String> = arrayListOf(" ", "marcos","Jose")
+    var adapter : ArrayAdapter<String> ? = null
 
 
     @SuppressLint("WrongViewCast")
@@ -14,11 +15,11 @@ class Todolist : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_todolist)
 
-        val texto = findViewById(R.id.text) as EditText
+        val texto = findViewById(R.id.text) as TextView
         val boton1 = findViewById(R.id.boton) as Button
 
         var Lista1 = findViewById<ListView>(R.id.lista)
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lang)
+        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lang)
         Lista1.adapter = adapter
 
 
@@ -38,12 +39,12 @@ class Todolist : AppCompatActivity() {
         }
 
     private fun agregar(tarea: String) {
-        lang.addAll(tarea)
-        notifyDataSetChanged()
+        lang.add(tarea)
+        adapter?.notifyDataSetChanged()
     }
 
     private fun eliminar (pos : Int) {
-        lang.remove(pos)
-        notifyDataSetChanged()
+        lang.removeAt(pos)
+        adapter?.notifyDataSetChanged()
     }
 }
